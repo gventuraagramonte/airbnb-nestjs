@@ -11,7 +11,7 @@ RUN npm install -g
 
 RUN npm install
 
-COPY app/auth apps/auth
+COPY apps/auth apps/auth
 COPY libs libs
 
 RUN cd apps/auth && npm install
