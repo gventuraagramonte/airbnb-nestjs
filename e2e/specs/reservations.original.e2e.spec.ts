@@ -3,7 +3,7 @@ describe('Reservations', () => {
 
     beforeAll(async()=>{
         const user = {
-            email: 'giorgioventura06@gmail.com',
+            email: 'giorgiov@gmail.com',
             password: 'UnP4sswordBienR0busto#'
         }
 
@@ -23,10 +23,7 @@ describe('Reservations', () => {
             }
         })
 
-        const regex = /Authentication=([^;]+)/;
-        const w = await response.headers.getSetCookie();
-        const match = w[0].match(regex)
-        jwt = `${match[1]}`
+        jwt = await response.text()
     })
 
     test('Create & Get',async () => {
@@ -36,7 +33,7 @@ describe('Reservations', () => {
             `http://reservations:3000/reservations/${createdReservation._id}`,
             {
                 headers: {
-                    'Cookie': `Authentication=${jwt}`
+                    Authentication: jwt
                 }
             }
         )
@@ -52,7 +49,7 @@ describe('Reservations', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Cookie': `Authentication=${jwt}`
+                    Authentication: jwt
                 },
                 body: JSON.stringify({
                     startDate: '02-01-2026',
@@ -60,7 +57,7 @@ describe('Reservations', () => {
                     placeId: '1234',
                     invoiceId: '139211',
                     charge: {
-                        amount: 24,
+                        amount: 37,
                         card: {
                             cvc: '429',
                             exp_month: 12,
